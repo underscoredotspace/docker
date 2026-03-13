@@ -1,0 +1,18 @@
+$TTL 10m
+
+$ORIGIN home.messy.cloud.
+
+@ IN SOA ns.home.messy.cloud. info.home.messy.cloud. (
+        2026031301  ; 10 digit serial
+        12h         ; refresh
+        15m         ; retry
+        3w          ; expire
+        10m         ; min ttl
+)
+
+                                        IN      NS      ns.home.messy.cloud.
+
+ns                                      IN      A       10.10.1.20
+@                                       IN      A       10.10.1.20
+
+*.home.messy.cloud.                     IN      A       10.10.1.20
