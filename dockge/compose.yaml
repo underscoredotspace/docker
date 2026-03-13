@@ -1,0 +1,24 @@
+services:
+  dockge:
+    image: louislam/dockge:1
+    container_name: dockge
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock   # read-only if only monitoring
+      - ./data:/app/data
+      - /opt/docker/stacks:/opt/docker/stacks
+    environment:
+      DOCKGE_STACKS_DIR: /opt/docker/stacks
+    networks:
+      web:
+        aliases:
+          - dockge
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+
+networks:
+  web:
+    external: false
+    name: web

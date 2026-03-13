@@ -1,0 +1,67 @@
+{
+	email home@messy.cloud
+}
+
+*.home.messy.cloud {
+	tls {
+        dns cloudflare {env.CF_API_TOKEN}
+		resolvers 1.1.1.1 8.8.8.8 8.8.4.4
+	}
+
+	log {
+		level debug
+	}
+
+    @not-local not client_ip private_ranges
+
+    @dockge host dockge.home.messy.cloud
+	handle @dockge {
+		abort @not-local
+        reverse_proxy dockge:5001
+	}
+
+    @router host router.home.messy.cloud
+	handle @router {
+		abort @not-local
+
+		reverse_proxy http://10.10.1.1
+	}
+
+	@switch host switch.home.messy.cloud
+	handle @switch {
+		abort @not-local
+
+		reverse_proxy http://10.10.1.2
+	}
+
+    @poe host poe.home.messy.cloud
+	handle @poe {
+		abort @not-local
+
+		reverse_proxy http://10.10.1.3
+	}
+
+	@wifi host wifi.home.messy.cloud
+	handle @wifi {
+		abort @not-local
+
+		reverse_proxy https://10.10.1.4 {
+			transport http {
+				tls
+				tls_insecure_skip_verify
+			}
+		}
+	}
+
+    handle {
+        respond "No" 404
+	}
+}
+
+:80, :443 {
+	handle /helth {
+		respond "helth"
+	}
+
+	respond "No" 404
+}

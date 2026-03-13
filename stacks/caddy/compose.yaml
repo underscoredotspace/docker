@@ -1,0 +1,32 @@
+services:
+  caddy:
+    container_name: caddy
+    restart: unless-stopped
+    build: .
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    tmpfs:
+      - /tmp
+    volumes:
+      - /opt/docker/caddy:/etc/caddy:ro
+      - /var/www:/srv:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      CF_API_TOKEN: ${CF_API_TOKEN}
+    networks:
+      web:
+        aliases:
+          - caddy
+
+networks:
+  web:
+    external: true
+
+volumes:
+  caddy_data:
+  caddy_config:
