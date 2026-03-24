@@ -20,6 +20,17 @@
         reverse_proxy dockge:5001
 	}
 
+	@photos host photos.home.messy.cloud
+	handle @photos {
+		abort @not-local
+
+		reverse_proxy immich:2283
+	}
+
+	###################
+	# Home Networking #
+	###################
+
     @router host router.home.messy.cloud
 	handle @router {
 		abort @not-local
