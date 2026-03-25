@@ -73,6 +73,13 @@
 		}
 	}
 
+	@ext host ext.home.messy.cloud
+	handle @ext {
+		abort @not-local
+
+		reverse_proxy https://10.10.1.6
+	}
+
     handle {
         respond "No" 404
 	}
