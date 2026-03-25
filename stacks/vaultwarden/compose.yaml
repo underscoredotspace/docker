@@ -1,0 +1,31 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: unless-stopped
+    environment:
+      DOMAIN: https://vault.home.messy.cloud
+      SMTP_HOST: 10.10.1.21
+      SMTP_FROM: vault@home.messy.cloud
+      SMTP_SECURITY: off
+      SIGNUPS_ALLOWED: false
+      INVITATIONS_ALLOWED: false
+      YUBICO_CLIENT_ID: $YUBICO_CLIENT_ID
+      YUBICO_SECRET_KEY: $YUBICO_SECRET_KEY
+      LOG_FILE: /log/vaultwarden.log
+      LOG_LEVEL: warn
+      EXTENDED_LOGGING: true
+    volumes:
+      - /opt/docker/vaultwarden/data:/data
+      - /opt/docker/vaultwarden/log/:/log
+    networks:
+      web:
+        aliases:
+          - vaultwarden
+networks:
+  web:
+    external: true
+    name: web
+x-dockge:
+  urls:
+    - https://vault.home.messy.cloud

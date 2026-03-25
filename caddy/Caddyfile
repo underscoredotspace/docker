@@ -27,6 +27,15 @@
 		reverse_proxy immich:2283
 	}
 
+	@vault host vault.home.messy.cloud
+	handle @vault {
+		abort @not-local
+
+		reverse_proxy vaultwarden:80 {
+			header_up X-Real-IP {remote_host}
+		}
+	}
+
 	###################
 	# Home Networking #
 	###################
