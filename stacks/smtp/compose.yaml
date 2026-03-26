@@ -1,0 +1,11 @@
+services:
+  smtp:
+    image: namshi/smtp:latest
+    container_name: smtp
+    restart: unless-stopped
+    ports:
+      - 25:25
+    environment:
+      MAILNAME: ${MAILNAME}
+      RELAY_NETWORKS: :10.10.0.0/16:172.16.0.0/12
+networks: {}
