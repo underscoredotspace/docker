@@ -27,6 +27,13 @@
 		reverse_proxy immich:2283
 	}
 
+	@music host music.home.messy.cloud
+	handle @music {
+		abort @not-local
+
+		reverse_proxy navidrome:4533
+	}
+
 	@video host video.home.messy.cloud
 	handle @video {
 		abort @not-local

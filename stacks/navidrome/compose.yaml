@@ -1,0 +1,30 @@
+services:
+  navidrome:
+    image: deluan/navidrome:latest
+    user: 1000:1000
+    ports: []
+    restart: unless-stopped
+    environment:
+      ND_LASTFM_APIKEY: ${ND_LASTFM_APIKEY}
+      ND_LASTFM_SECRET: ${ND_LASTFM_SECRET}
+      ND_SCANSCHEDULE: 1h
+      ND_LOGLEVEL: info
+      ND_SESSIONTIMEOUT: 24h
+      ND_BASEURL: "https://music.home.messy.cloud"
+    volumes:
+      - /opt/docker/navidrome:/data
+      - music:/music
+    networks:
+      - web
+volumes:
+  music:
+    driver_opts:
+      type: nfs
+      o: addr=10.10.1.22,nfsvers=4,nolock,ro
+      device: :/volume1/music
+networks:
+  web:
+    external: true
+x-dockge:
+  urls:
+    - https://music.home.messy.cloud
