@@ -1,0 +1,15 @@
+services:
+  memos:
+    container_name: memos
+    volumes:
+      - /opt/docker/memos:/var/opt/memos
+    image: neosmemo/memos:stable
+    restart: unless-stopped
+    networks:
+      - web
+x-dockge:
+  urls:
+    - https://memos.home.messy.cloud
+networks:
+  web:
+    external: true

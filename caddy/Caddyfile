@@ -41,6 +41,13 @@
 		reverse_proxy jellyfin:8096
 	}
 
+	@memos host memos.home.messy.cloud
+	handle @memos {
+		abort @not-local
+
+		reverse_proxy memos:5230
+	}
+
 	@vault host vault.home.messy.cloud
 	handle @vault {
 		abort @not-local
