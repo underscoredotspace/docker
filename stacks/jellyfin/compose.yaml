@@ -1,0 +1,32 @@
+services:
+  jellyfin:
+    image: ghcr.io/jellyfin/jellyfin:latest
+    restart: unless-stopped
+    group_add:
+      - "105"
+    ports:
+      - 7359:7359/udp
+      - 1900:1900/udp
+    volumes:
+      - /opt/docker/jellyfin/config:/config
+      - /opt/docker/jellyfin/cache:/cache
+      - torrents:/media:ro
+      - video:/video:ro
+    devices:
+      - /dev/dri/renderD128:/dev/dri/renderD128
+    networks:
+      - web
+volumes:
+  torrents:
+    driver_opts:
+      type: nfs
+      o: addr=10.10.1.22,nfsvers=4,nolock,ro
+      device: :/volume1/Torrents
+  video:
+    driver_opts:
+      type: nfs
+      o: addr=10.10.1.22,nfsvers=4,nolock,ro
+      device: :/volume1/Video
+networks:
+  web:
+    external: true

@@ -27,6 +27,13 @@
 		reverse_proxy immich:2283
 	}
 
+	@video host video.home.messy.cloud
+	handle @video {
+		abort @not-local
+
+		reverse_proxy jellyfin:8096
+	}
+
 	@vault host vault.home.messy.cloud
 	handle @vault {
 		abort @not-local

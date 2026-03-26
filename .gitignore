@@ -1,3 +1,4 @@
 .env
 dockge/data/
-vaultwarden/**
+/vaultwarden
+/jellyfin
