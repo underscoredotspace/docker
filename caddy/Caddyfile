@@ -1,11 +1,11 @@
 {
-	email home@messy.cloud
+	email {env.EMAIL}
 }
 
-*.home.messy.cloud {
+*.{env.DOMAIN} {
 	tls {
         dns cloudflare {env.CF_API_TOKEN}
-		resolvers 1.1.1.1 8.8.8.8 8.8.4.4
+		resolvers 1.1.1.1
 	}
 
 	log {
@@ -14,41 +14,48 @@
 
     @not-local not client_ip private_ranges
 
-    @dockge host dockge.home.messy.cloud
+    @dockge host dockge.{env.DOMAIN}
 	handle @dockge {
 		abort @not-local
         reverse_proxy dockge:5001
 	}
 
-	@photos host photos.home.messy.cloud
+	@photos host photos.{env.DOMAIN}
 	handle @photos {
 		abort @not-local
 
 		reverse_proxy immich:2283
 	}
 
-	@music host music.home.messy.cloud
+	@music host music.{env.DOMAIN}
 	handle @music {
 		abort @not-local
 
 		reverse_proxy navidrome:4533
 	}
 
-	@video host video.home.messy.cloud
+	@video host video.{env.DOMAIN}
 	handle @video {
 		abort @not-local
 
 		reverse_proxy jellyfin:8096
 	}
 
-	@memos host memos.home.messy.cloud
+	@memos host memos.{env.DOMAIN}
 	handle @memos {
 		abort @not-local
 
 		reverse_proxy memos:5230
 	}
 
-	@vault host vault.home.messy.cloud
+	@notes host notes.{env.DOMAIN}
+	handle @notes {
+		abort @not-local
+
+		reverse_proxy flatnotes:8080
+	}
+
+	@vault host vault.{env.DOMAIN}
 	handle @vault {
 		abort @not-local
 
@@ -61,28 +68,28 @@
 	# Home Networking #
 	###################
 
-    @router host router.home.messy.cloud
+    @router host router.{env.DOMAIN}
 	handle @router {
 		abort @not-local
 
 		reverse_proxy http://10.10.1.1
 	}
 
-	@switch host switch.home.messy.cloud
+	@switch host switch.{env.DOMAIN}
 	handle @switch {
 		abort @not-local
 
 		reverse_proxy http://10.10.1.2
 	}
 
-    @poe host poe.home.messy.cloud
+    @poe host poe.{env.DOMAIN}
 	handle @poe {
 		abort @not-local
 
 		reverse_proxy http://10.10.1.3
 	}
 
-	@wifi host wifi.home.messy.cloud
+	@wifi host wifi.{env.DOMAIN}
 	handle @wifi {
 		abort @not-local
 
@@ -94,7 +101,7 @@
 		}
 	}
 
-	@ext host ext.home.messy.cloud
+	@ext host ext.{env.DOMAIN}
 	handle @ext {
 		abort @not-local
 

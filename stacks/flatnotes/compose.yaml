@@ -1,0 +1,19 @@
+services:
+  flatnotes:
+    container_name: flatnotes
+    image: dullage/flatnotes:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - FLATNOTES_AUTH_TYPE=none
+    volumes:
+      - /opt/docker/flatnotes:/data
+    restart: unless-stopped
+    networks:
+      - web
+networks:
+  web:
+    external: true
+x-dockge:
+  urls:
+    - https://notes.home.messy.cloud

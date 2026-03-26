@@ -18,6 +18,8 @@ services:
       - caddy_config:/config
     environment:
       CF_API_TOKEN: ${CF_API_TOKEN}
+      EMAIL: ${EMAIL}
+      DOMAIN: ${DOMAIN}
     networks:
       web:
         aliases:
