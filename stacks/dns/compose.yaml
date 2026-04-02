@@ -1,19 +1,18 @@
 services:
-  # duckdns:
-  #   container_name: duckdns
-  #   restart: unless-stopped
-  #   image: lscr.io/linuxserver/duckdns:latest
-  #   network_mode: host
-  #   read_only: true
-  #   tmpfs:
-  #     - /run:exec
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #     - TZ=Etc/UTC
-  #     - SUBDOMAINS=${DUCKDNS_SUBDOMAIN}
-  #     - TOKEN=${DUCKDNS_TOKEN}
-  #     - LOG_FILE=false
+  duckdns:
+    container_name: duckdns
+    restart: unless-stopped
+    image: lscr.io/linuxserver/duckdns:latest
+    network_mode: host
+    tmpfs:
+      - /run:exec
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - SUBDOMAINS=${DUCKDNS_DOMAIN}
+      - TOKEN=${DUCKDNS_TOKEN}
+      - LOG_FILE=false
   dns:
     container_name: dns
     restart: unless-stopped
