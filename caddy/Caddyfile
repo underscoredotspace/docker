@@ -20,6 +20,14 @@
         reverse_proxy dockge:5001
 	}
 
+	@ha host ha.{env.DOMAIN}
+	handle @ha {
+		abort @not-local
+        reverse_proxy host.docker.internal:8123 {
+			header_up X-Real-IP {remote_host}
+		}
+	}
+
 	@photos host photos.{env.DOMAIN}
 	handle @photos {
 		abort @not-local

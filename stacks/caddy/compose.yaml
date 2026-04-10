@@ -6,9 +6,9 @@ services:
     cap_add:
       - NET_ADMIN
     ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
+      - 80:80
+      - 443:443
+      - 443:443/udp
     tmpfs:
       - /tmp
     volumes:
@@ -24,11 +24,11 @@ services:
       web:
         aliases:
           - caddy
-
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 networks:
   web:
     external: true
-
 volumes:
-  caddy_data:
-  caddy_config:
+  caddy_data: null
+  caddy_config: null
