@@ -5,6 +5,8 @@ services:
     restart: unless-stopped
     ports:
       - 25:25
+    dns:
+      - 1.1.1.1
     environment:
       MAILNAME: ${MAILNAME}
       RELAY_NETWORKS: :10.10.0.0/16:172.16.0.0/12

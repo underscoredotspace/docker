@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     environment:
       DOMAIN: https://vault.home.messy.cloud
-      SMTP_HOST: 10.10.1.21
+      SMTP_HOST: 10.10.1.20
       SMTP_FROM: vault@home.messy.cloud
       SMTP_SECURITY: off
       SIGNUPS_ALLOWED: false
