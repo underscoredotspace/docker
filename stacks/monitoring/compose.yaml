@@ -1,0 +1,24 @@
+services:
+  prometheus:
+    container_name: prom
+    volumes:
+      - /opt/docker/prometheus:/etc/prometheus
+      - prometheus-data:/prometheus
+    image: prom/prometheus
+    restart: unless-stopped
+    networks:
+      - web
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    volumes:
+      - grafana-data:/var/lib/grafana
+    restart: unless-stopped
+    networks:
+      - web
+volumes:
+  prometheus-data: null
+  grafana-data: null
+networks:
+  web:
+    external: true

@@ -1,0 +1,37 @@
+services:
+  frigate:
+    container_name: frigate
+    restart: unless-stopped
+    stop_grace_period: 30s
+    image: ghcr.io/blakeblackshear/frigate:0.17.1
+    shm_size: 1gb
+    devices:
+      - /dev/dri:/dev/dri
+    volumes:
+      - /opt/docker/frigate:/config
+      - media:/media/frigate
+      - /etc/localtime:/etc/localtime:ro
+      - type: tmpfs
+        target: /tmp/cache
+        tmpfs:
+          size: 1000000000
+    ports:
+      - 127.0.0.1:5000:5000
+    environment:
+      - FRIGATE_CAM_LOGIN=${FRIGATE_CAM_LOGIN}
+      - LIBVA_DRIVER_NAME=radeonsi
+      - PLUS_API_KEY=${PLUS_API_KEY}
+    networks:
+      - web
+      - mqtt_mqtt
+volumes:
+  media:
+    driver_opts:
+      type: nfs
+      o: addr=10.10.1.22,nfsvers=4,async,rw
+      device: :/volume1/Cameras
+networks:
+  web:
+    external: true
+  mqtt_mqtt:
+    external: true

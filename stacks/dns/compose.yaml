@@ -4,6 +4,8 @@ services:
     restart: unless-stopped
     image: lscr.io/linuxserver/duckdns:latest
     network_mode: host
+    dns:
+      - 1.1.1.1
     tmpfs:
       - /run:exec
     environment:
@@ -27,7 +29,7 @@ services:
       - /opt/docker/dns:/etc/bind
       - dns-records:/var/lib/bind
       - dns-cache:/var/cache/bind
-
 volumes:
-  dns-cache:
-  dns-records:
+  dns-cache: null
+  dns-records: null
+networks: {}

@@ -72,6 +72,27 @@
 		}
 	}
 
+	@cam host cam.{env.DOMAIN}
+	handle @cam {
+		abort @not-local
+
+		reverse_proxy frigate:5000
+	}
+
+	@prom host prom.{env.DOMAIN}
+	handle @prom {
+		abort @not-local
+
+		reverse_proxy prom:9090
+	}
+
+	@grafana host grafana.{env.DOMAIN}
+	handle @grafana {
+		abort @not-local
+
+		reverse_proxy grafana:3000
+	}
+
 	###################
 	# Home Networking #
 	###################
