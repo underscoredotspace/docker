@@ -20,6 +20,8 @@ services:
       CF_API_TOKEN: ${CF_API_TOKEN}
       EMAIL: ${EMAIL}
       DOMAIN: ${DOMAIN}
+      NETLIFY_TOKEN: ${NETLIFY_TOKEN}
+      OLD_DOMAIN: ${OLD_DOMAIN}
     networks:
       web:
         aliases:

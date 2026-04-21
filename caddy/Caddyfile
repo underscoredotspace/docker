@@ -2,6 +2,15 @@
 	email {env.EMAIL}
 }
 
+*.{env.OLD_DOMAIN} {
+	tls {
+		dns netlify {env.NETLIFY_TOKEN}
+		resolvers 1.1.1.1
+	}
+
+	redir https://{labels.3}.{env.DOMAIN}{uri} permanent
+}
+
 *.{env.DOMAIN} {
 	tls {
         dns cloudflare {env.CF_API_TOKEN}
@@ -93,6 +102,17 @@
 		reverse_proxy grafana:3000
 	}
 
+	###########
+	# Devices #
+	###########
+
+	@storage host storage.{env.DOMAIN}
+	handle @storage {
+		abort @not-local
+
+		reverse_proxy 10.10.1.22:5000
+	}
+
 	###################
 	# Home Networking #
 	###################
@@ -138,7 +158,7 @@
 	}
 
     handle {
-        respond "No" 404
+        respond "No? " 404
 	}
 }
 
@@ -147,5 +167,5 @@
 		respond "helth"
 	}
 
-	respond "No" 404
+	respond "No!" 404
 }

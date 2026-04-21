@@ -1,0 +1,18 @@
+$TTL 10m
+
+$ORIGIN home.underscore.space.
+
+@ IN SOA ns.home.underscore.space. info.home.underscore.space. (
+        2026042101  ; 10 digit serial
+        12h         ; refresh
+        15m         ; retry
+        3w          ; expire
+        10m         ; min ttl
+)
+
+                                        IN      NS      ns.home.underscore.space.
+
+ns                                      IN      A       10.10.1.20
+@                                       IN      A       10.10.1.20
+
+*.home.underscore.space.                IN      A       10.10.1.20
