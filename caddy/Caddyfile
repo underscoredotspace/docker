@@ -31,7 +31,6 @@
 
 	@ha host ha.{env.DOMAIN}
 	handle @ha {
-		abort @not-local
         reverse_proxy host.docker.internal:8123 {
 			header_up X-Real-IP {remote_host}
 		}
@@ -144,7 +143,6 @@
 
 		reverse_proxy https://10.10.1.4 {
 			transport http {
-				tls
 				tls_insecure_skip_verify
 			}
 		}
